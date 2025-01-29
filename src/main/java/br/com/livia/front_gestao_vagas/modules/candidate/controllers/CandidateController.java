@@ -20,11 +20,11 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.livia.front_gestao_vagas.modules.candidate.services.CandidateService;
+import br.com.livia.front_gestao_vagas.modules.candidate.services.FindJobsService;
 import br.com.livia.front_gestao_vagas.modules.candidate.services.ProfileCandidateService;
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -37,6 +37,10 @@ public class CandidateController {
 
     @Autowired
     private ProfileCandidateService profileCandidateService;
+
+    @Autowired
+    private FindJobsService findJobsService;
+
 
     @GetMapping("/login")
     public String login(){
@@ -90,10 +94,22 @@ public class CandidateController {
 
     @GetMapping("/jobs")
     @PreAuthorize("hasRole('CANDIDATE')")
-    public String jobs(String filter) {
+    public String jobs(Model model, String filter) {
         
         System.out.println("Filter: " + filter);
+
+        if (filter != null) {
+            //model.addAttribute("jobs", filter);
+            this.findJobsService.execute(getToken(), filter);
+        }
+
         return "candidate/jobs";
+    }
+
+    private String getToken() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getDetails().toString();
+
     }
     
 }
