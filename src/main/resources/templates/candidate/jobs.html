@@ -27,16 +27,19 @@
             <button class="bg-blue-800 text-gray-100 w-22 p-3 rounded hover:bg-blue-500 ml-1">Search</button>
         </form>
 
-        <div th:each="job:${jobs}" class="container mx-auto mt-8">
+        <div class="container mx-auto mt-8">
 
-            <div class="bg-gray-800 p-8 rounded-lg shadow-md">
+            <div th:each="job:${jobs}" class="text-gray-100 bg-gray-800 p-8 rounded-lg p-4 mb-4 shadow-md text-justify">
 
-                <h3 th:text="${job}">
+                <h3 th:text="${job.name}" class="font-bold block mb-4">Job Name</h3>
 
                 <span class="font-bold">Description: </span>
-                <span th:text="${job.description}"></span>
+                <span th:text="${job.description}" class="block mb-4"></span>
                 <span class="font-bold">Benefits: </span>
-                <span th:text="${job.benefits}"></span>
+                <span th:text="${job.benefits}" class="block mb-4"></span>
+                <span class="font-bold">Level: </span>
+                <span th:text="${job.level}" class="block mb-4"></span>
+                <button class="font-bold bg-blue-800 text-gray-100 px-4 py-2 rounded hover:bg-blue-500  mt-8">Candidatar-se</button>
     
             </div>
         
