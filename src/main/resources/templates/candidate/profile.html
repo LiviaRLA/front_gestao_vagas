@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script> <!--https://cdn.tailwindcss.com-->
+    <title>Candidate Profile</title>
+</head>
+<body class="bg-gray-900 h-screen items-center flex justify-center">
+
+    <p class="text-white">Candidate Profile</p>
+    <nav class="bg-gray-700">
+        <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+            <div class="relative flex h-16 items-center justify-start text-white">
+                <div class="space-x-4">
+                    <a href="/candidate/profile" class="bg-gray-900 rounded-md px-3 py-2">Profile</a>
+                    <a href="/candidate/jobs">Jobs</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto mt-8">
+        <div class="bg-gray-800 p-8 rounded-lg shadow-md">
+
+            <h1 class="text-2xl font-bold text-gray-100 text-center mb-8" th:text="${candidade.name}"></h1>
+            
+            <form th:object="${candidate}">
+                <div class="text-center mb-4">
+
+                    <p class="text-gray-400 ">
+                        <span class="font-bold">User: </span>
+                        <span th:text="${candidade.username}"></span>
+                    </p>
+    
+                    <p class="text-gray-400 ">
+                        <span class="font-bold">Email: </span>
+                        <span th:text="${candidade.email}"></span>
+                    </p>
+    
+                    <p class="text-gray-400 ">
+                        <span class="font-bold">Description: </span>
+                        <span th:text="${candidade.description}"></span>
+                    </p>
+                    
+                </div>
+            </form>
+
+        </div>
+    </div>
+     
+</body>
+</html>
