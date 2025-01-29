@@ -1,14 +1,10 @@
 package br.com.livia.front_gestao_vagas.modules.candidate.controllers;
 
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -98,9 +94,17 @@ public class CandidateController {
         
         System.out.println("Filter: " + filter);
 
-        if (filter != null) {
-            //model.addAttribute("jobs", filter);
-            this.findJobsService.execute(getToken(), filter);
+        try {
+            
+            if (filter != null) {
+
+                var jobs = this.findJobsService.execute(getToken(), filter);
+                
+                model.addAttribute("jobs", jobs);
+
+            }
+        } catch (HttpClientErrorException e) {
+            return "redirect:/candidate/login";
         }
 
         return "candidate/jobs";

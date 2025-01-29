@@ -27,18 +27,16 @@
             <button class="bg-blue-800 text-gray-100 w-22 p-3 rounded hover:bg-blue-500 ml-1">Search</button>
         </form>
 
-        <div class="container mx-auto mt-8">
+        <div th:each="job:${jobs}" class="container mx-auto mt-8">
 
             <div class="bg-gray-800 p-8 rounded-lg shadow-md">
 
-                <h3 th:text="${job.name}">
+                <h3 th:text="${job}">
 
-        
                 <span class="font-bold">Description: </span>
                 <span th:text="${job.description}"></span>
                 <span class="font-bold">Benefits: </span>
                 <span th:text="${job.benefits}"></span>
-
     
             </div>
         

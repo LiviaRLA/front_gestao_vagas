@@ -1,5 +1,8 @@
 package br.com.livia.front_gestao_vagas.modules.candidate.dto;
 
+import java.util.Date;
+import java.util.UUID;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,11 +12,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class JobsDTO {
 
+
+    private UUID id;
+    private UUID companyId;
     private String name;
-    private String company;
     private String description;
     private String level;
     private String benefits;
+    private Date createdAt;
     
     
 }

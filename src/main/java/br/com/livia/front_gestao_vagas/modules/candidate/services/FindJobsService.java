@@ -1,7 +1,9 @@
 package br.com.livia.front_gestao_vagas.modules.candidate.services;
 
+import java.util.List;
 import java.util.Map;
 
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -19,7 +21,7 @@ import br.com.livia.front_gestao_vagas.modules.candidate.dto.JobsDTO;
 public class FindJobsService {
 
 
-    public JobsDTO execute(String token, String filter) {
+    public List<JobsDTO> execute(String token, String filter) {
 
         RestTemplate rt = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -29,11 +31,16 @@ public class FindJobsService {
         
         UriComponentsBuilder builder = UriComponentsBuilder.fromUriString("http://localhost:8080/candidate/job").queryParam("filter", filter);
 
+        ParameterizedTypeReference<List<JobsDTO>> responseType = new ParameterizedTypeReference<List<JobsDTO>>() {
+            
+        };
+
+
         try {
-            var result = rt.exchange(builder.toUriString(), HttpMethod.GET, request, JobsDTO.class);
-        
-            System.out.println(result);
+            var result = rt.exchange(builder.toUriString(), HttpMethod.GET, request, responseType);
+
             return result.getBody();
+            
         } catch (Unauthorized e) {
 
             throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED);
