@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.livia.front_gestao_vagas.modules.candidate.dto.CreateCandidateDTO;
 import br.com.livia.front_gestao_vagas.modules.candidate.services.ApplyJobService;
 import br.com.livia.front_gestao_vagas.modules.candidate.services.CandidateService;
 import br.com.livia.front_gestao_vagas.modules.candidate.services.FindJobsService;
@@ -25,6 +26,8 @@ import br.com.livia.front_gestao_vagas.modules.candidate.services.ProfileCandida
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.PostMapping;
+
+
 
 
 
@@ -49,15 +52,7 @@ public class CandidateController {
 
     @GetMapping("/login")
     public String login() {
-
         return "candidate/login";
-    }
-
-    @GetMapping("/create")
-    public String create() {
-
-        return "candidate/create";
-
     }
 
     @PostMapping("/signIn")
@@ -133,6 +128,19 @@ public class CandidateController {
         this.applyJobService.execute(getToken(), jobId);
         System.out.println("JobId: " + jobId);
         return "redirect:/candidate/jobs";
+    }
+
+    @GetMapping("/create")
+    public String create(Model model) {
+        model.addAttribute("candidate", new CreateCandidateDTO());
+        return "candidate/create";
+    }
+
+    @PostMapping("/create")
+    public String save( CreateCandidateDTO candidate, Model model) {
+        System.out.println("Candidate name: " + candidate.getName());
+        model.addAttribute("candidate", candidate);
+        return "candidate/create";
     }
     
 
