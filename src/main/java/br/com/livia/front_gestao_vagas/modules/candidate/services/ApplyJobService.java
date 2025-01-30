@@ -1,8 +1,5 @@
 package br.com.livia.front_gestao_vagas.modules.candidate.services;
 
-
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.http.HttpEntity;
@@ -10,6 +7,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+
 
 @Service
 public class ApplyJobService {

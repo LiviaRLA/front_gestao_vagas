@@ -48,9 +48,16 @@ public class CandidateController {
 
 
     @GetMapping("/login")
-    public String login(){
+    public String login() {
 
         return "candidate/login";
+    }
+
+    @GetMapping("/create")
+    public String create() {
+
+        return "candidate/create";
+
     }
 
     @PostMapping("/signIn")
