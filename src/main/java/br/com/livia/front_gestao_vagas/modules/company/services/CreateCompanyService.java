@@ -1,4 +1,4 @@
-package br.com.livia.front_gestao_vagas.modules.candidate.services;
+package br.com.livia.front_gestao_vagas.modules.company.services;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -8,15 +8,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import br.com.livia.front_gestao_vagas.modules.candidate.dto.CreateCandidateDTO;
+import br.com.livia.front_gestao_vagas.modules.company.dto.CreateCompanyDTO;
 
 @Service
-public class CreateCandidateService {
+public class CreateCompanyService {
 
     @Value("${host.api.gestao.vagas}")
     private String hostAPI;
 
-    public void execute(CreateCandidateDTO createCandidateDTO) {
+    public void execute(CreateCompanyDTO createCompanyDTO) {
 
         try {
 
@@ -25,9 +25,9 @@ public class CreateCandidateService {
             HttpHeaders hearders = new HttpHeaders();
             hearders.setContentType(MediaType.APPLICATION_JSON);
 
-            HttpEntity<CreateCandidateDTO> request = new HttpEntity<>(createCandidateDTO, hearders);
+            HttpEntity<CreateCompanyDTO> request = new HttpEntity<>(createCompanyDTO, hearders);
 
-            String url = hostAPI.concat("/candidate/");
+            String url = hostAPI.concat("/company/");
 
             var result = rt.postForObject(url, request, String.class);
             System.out.println(result);
@@ -38,4 +38,5 @@ public class CreateCandidateService {
 
         }
     }
+    
 }

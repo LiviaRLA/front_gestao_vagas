@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script> <!--https://cdn.tailwindcss.com-->
+    <title>Vacancy Registration</title>
+</head>
+<body class="bg-white h-screen flex flex-col items-center justify-start">
+
+    <nav class="bg-zinc-950 p-4 flex justify-between items-center">
+        <div>
+            <a href="/company/jobs" class="text-white text-lg font-semibold px-4">Register</a>
+        </div>
+        <div>
+            <a href="/company/jobs/list" class="text-white text-lg font-semibold px-4">Listing</a>
+        </div>
+        <div>
+            <a href="/company/logout" class="text-white text-lg font-semibold px-4">Logout</a>
+        </div>
+    </nav>
+
+    <p class="text-center text-3xl pt-5">Listagem de Vagas</p>
+
+    <div class="flex-grow flex pt-10 justify-center">
+
+        <div class="pb-3 max-w-full">
+            <table class="w-full">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="text-left py-2 px-4">Title</th>
+                        <th class="text-left py-2 px-4">Description</th>
+                        <th class="text-left py-2 px-4">Level</th>
+                        <th class="text-left py-2 px-4">Benefits</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="job: ${job}">
+                        <td class="border px-4 py-2" th:text="${job.title}"></td>
+                        <td class="border px-4 py-2" th:text="${job.description}"></td>
+                        <td class="border px-4 py-2" th:text="${job.level}"></td>
+                        <td class="border px-4 py-2" th:text="${job.benefits}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+ 
+    </div>
+    
+</body>
+</html>

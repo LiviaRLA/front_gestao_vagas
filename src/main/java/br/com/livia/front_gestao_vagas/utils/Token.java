@@ -1,4 +1,4 @@
-package br.com.livia.front_gestao_vagas.modules.candidate.dto;
+package br.com.livia.front_gestao_vagas.utils;
 
 import java.util.List;
 

@@ -4,13 +4,16 @@
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script> <!--https://cdn.tailwindcss.com-->
-    <title>Candidate Create</title>
+    <title>Candidate Registration</title>
 </head>
-<body class="bg-gray-900 h-screen items-center flex justify-center">
+<body class="bg-sky-950 h-screen flex flex-col items-center justify-start">
+    <div class="text-white max-w-screen text-center py-8">
+        <h1 class="text-4xl md:text-6xl">Vacancy Management</h1>
+    </div>
     <form id="submitForm" th:action="@{/candidate/create}" class="flex gap-24" method="post" th:object="${candidate}">
     
         <div class="space-y-8 bg-zinc-950 rounded-md p-10">
-            <p class="text-gray-100">Create your account</p>
+            <p class="text-gray-100">Register your account</p>
             <p class="text-red-400 hidden" id="passwordError">Passwords are different</p>
 
             <input type="text" name="name" th:field="*{name}"
@@ -31,14 +34,10 @@
             <textarea name="description" th:field="*{description}" class="bg-gray-100 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="About you..."></textarea>
             <p class="text-red-400" th:if="${error_message}" th:text="${error_message}"></p>
-            <button class="bg-blue-800 text-gray-100 w-96 p-3 rounded hover:bg-blue-500">Sign up</button>
+            <button class="bg-blue-800 text-gray-100 w-full p-3 rounded hover:bg-blue-500">Sign up</button>
             <a href="/candidate/login" class="text-center text-blue-800 underline underline-offset-2 block hover:text-blue-500"> Login </a>
         </div>
     </form>
-
-    <div class="text-white max-w-80 text-6xl flex items-center">
-        Gestão de vagas
-    </div>
     
 </body>
 

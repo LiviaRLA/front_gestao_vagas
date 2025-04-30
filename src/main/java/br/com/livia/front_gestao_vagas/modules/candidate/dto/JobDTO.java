@@ -10,12 +10,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class JobsDTO {
+public class JobDTO {
 
 
     private UUID id;
     private UUID companyId;
-    private String name;
+    private String title;
     private String description;
     private String level;
     private String benefits;

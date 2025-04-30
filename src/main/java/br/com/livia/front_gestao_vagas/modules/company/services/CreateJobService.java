@@ -1,41 +1,35 @@
-package br.com.livia.front_gestao_vagas.modules.candidate.services;
+package br.com.livia.front_gestao_vagas.modules.company.services;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import br.com.livia.front_gestao_vagas.modules.candidate.dto.CreateCandidateDTO;
+import br.com.livia.front_gestao_vagas.modules.company.dto.CreateJobDTO;
+
 
 @Service
-public class CreateCandidateService {
+public class CreateJobService {
 
     @Value("${host.api.gestao.vagas}")
     private String hostAPI;
 
-    public void execute(CreateCandidateDTO createCandidateDTO) {
-
-        try {
+    public String execute(String token, CreateJobDTO createJobDTO) {
 
             RestTemplate rt = new RestTemplate();
 
             HttpHeaders hearders = new HttpHeaders();
             hearders.setContentType(MediaType.APPLICATION_JSON);
 
-            HttpEntity<CreateCandidateDTO> request = new HttpEntity<>(createCandidateDTO, hearders);
+            HttpEntity<CreateJobDTO> request = new HttpEntity<>(createJobDTO, hearders);
 
-            String url = hostAPI.concat("/candidate/");
+            String url = hostAPI.concat("/company/job/");
 
             var result = rt.postForObject(url, request, String.class);
             System.out.println(result);
-
-        } catch (HttpClientErrorException e) {
-            System.out.println(e.getStatusCode());
-            System.out.println(e.getMessage());
-
-        }
+            return result;
     }
+    
 }

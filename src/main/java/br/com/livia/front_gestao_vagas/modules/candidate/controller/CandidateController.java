@@ -1,4 +1,4 @@
-package br.com.livia.front_gestao_vagas.modules.candidate.controllers;
+package br.com.livia.front_gestao_vagas.modules.candidate.controller;
 
 
 import java.util.UUID;
@@ -20,18 +20,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.livia.front_gestao_vagas.modules.candidate.dto.CreateCandidateDTO;
 import br.com.livia.front_gestao_vagas.modules.candidate.services.ApplyJobService;
-import br.com.livia.front_gestao_vagas.modules.candidate.services.CandidateService;
 import br.com.livia.front_gestao_vagas.modules.candidate.services.CreateCandidateService;
 import br.com.livia.front_gestao_vagas.modules.candidate.services.FindJobsService;
+import br.com.livia.front_gestao_vagas.modules.candidate.services.LoginCandidateService;
 import br.com.livia.front_gestao_vagas.modules.candidate.services.ProfileCandidateService;
+import br.com.livia.front_gestao_vagas.utils.FormatErrorMessage;
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.PostMapping;
-
-
-
-
-
 
 
 @Controller
@@ -39,7 +35,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class CandidateController {
 
     @Autowired
-    private CandidateService candidateService;
+    private LoginCandidateService loginCandidateService;
 
     @Autowired
     private ProfileCandidateService profileCandidateService;
@@ -53,6 +49,27 @@ public class CandidateController {
     @Autowired
     private CreateCandidateService createCandidateService;
 
+    @GetMapping("/create")
+    public String create(Model model) {
+        model.addAttribute("candidate", new CreateCandidateDTO());
+        return "candidate/create";
+    }
+    
+    @PostMapping("/create")
+    public String save(CreateCandidateDTO candidate, Model model) {
+
+        try {
+            this.createCandidateService.execute(candidate);
+        } catch (HttpClientErrorException e) {
+            model.addAttribute("error_message", FormatErrorMessage.formatErrorMessage(e.getResponseBodyAsString()));
+
+        }
+
+        System.out.println("Candidate name: " + candidate.getName());
+        model.addAttribute("candidate", candidate);
+        return "candidate/create";
+    }
+
 
     @GetMapping("/login")
     public String login() {
@@ -63,7 +80,7 @@ public class CandidateController {
     public String signIn(RedirectAttributes redirectAttributes, HttpSession session, String username, String password) {
         
         try {
-            var token = this.candidateService.login(username, password);
+            var token = this.loginCandidateService.execute(username, password);
             var grants = token.getRoles().stream().map(role ->
                 new SimpleGrantedAuthority("ROLE_" + role.toString().toUpperCase())).toList();
 
@@ -133,29 +150,6 @@ public class CandidateController {
         System.out.println("JobId: " + jobId);
         return "redirect:/candidate/jobs";
     }
-
-    @GetMapping("/create")
-    public String create(Model model) {
-        model.addAttribute("candidate", new CreateCandidateDTO());
-        return "candidate/create";
-    }
-
-    @PostMapping("/create")
-    public String save(CreateCandidateDTO candidate, Model model) {
-
-        try {
-            this.createCandidateService.execute(candidate);
-        } catch (HttpClientErrorException e) {
-            model.addAttribute("error_message", e.getMessage());
-
-        }
-
-        System.out.println("Candidate name: " + candidate.getName());
-        model.addAttribute("candidate", candidate);
-        return "candidate/create";
-    }
-    
-
 
     private String getToken() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

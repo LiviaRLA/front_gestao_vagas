@@ -6,10 +6,10 @@
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script> <!--https://cdn.tailwindcss.com-->
     <title>Candidate Login</title>
 </head>
-<body class="bg-gray-900 h-screen items-center flex justify-center">
+<body class="bg-sky-950 h-screen flex flex-col items-center justify-start">
     <form th:action="@{/candidate/signIn}" class="flex gap-24" method="post">
-        <div class="text-white max-w-80 text-6xl flex items-center">
-            Gestão de vagas
+        <div class="text-white max-w-screen text-center py-8">
+            <h1 class="text-4xl md:text-6xl">Vacancy Management</h1>
         </div>
 
         <div class="space-y-8 bg-zinc-950 rounded-md p-20">
