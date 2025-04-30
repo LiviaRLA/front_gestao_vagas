@@ -9,12 +9,14 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.client.HttpClientErrorException.Unauthorized;
 
 import br.com.livia.front_gestao_vagas.modules.candidate.dto.ProfileCandidateDTO;
 
+@Service
 public class ProfileCandidateService {
     
     @Value("${host.api.gestao.vagas}")
